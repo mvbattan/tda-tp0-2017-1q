@@ -1,0 +1,7 @@
+language: python
+python:
+	- "2.7"
+install:
+	- apt-get install -y pylint
+script:
+	- ls | grep \.py$ | xargs
