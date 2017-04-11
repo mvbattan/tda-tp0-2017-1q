@@ -69,9 +69,9 @@ def randomMeritPrinter(n,m,f):
 			f.write("\"\"\"HOSPITAL: "+str(j+1)+" ESPECIALIDAD:"+str(k+1)+"\"\"\" "+ str(meritCreator(n))+'\n')# M RENGLONES CON EL ORDEN DE MERITO DE CADA HOSP SEPARADO CON ESPACIOS
 
 
-file_name = input("Ingrese el nombre del archivo de salida: ")
-N=input("Ingrese la cantidad de estudiantes: ")
-M=input("Ingrese la cantidad de hospitales: ")
+file_name = sys.argv[0]   #input("Ingrese el nombre del archivo de salida: ")
+N = sys.argv[1] #input("Ingrese la cantidad de estudiantes: ")
+M = sys.argv[2] #input("Ingrese la cantidad de hospitales: ")
 int(N)
 int(M)
 										
