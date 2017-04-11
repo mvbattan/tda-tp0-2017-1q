@@ -7,3 +7,6 @@ script:
     - ls | grep \.py3$ | xargs
     - python stable_matching/generador_archivos_residencia.py salida 50 20
     - cat salida.txt
+
+notifications:
+  email: false
