@@ -9,22 +9,22 @@ class Digraph:
     creadas, las aristas no se pueden eliminar, pero siempre se pueden añadir
     nuevas aristas.
     """
-    V = 0
-    E = 0
+    v = 0
+    e = 0
     adj = {}
 
     def __init__(self, v):
         if v < 0:
             raise ValueError("El numero de vertices en un grafo debe ser mayor a cero")
-        self.V = v
+        self.v = v
         for i in range(v):
             self.adj[i] = []
 
     def V(self):
-        return self.V
+        return self.v
 
     def E(self):
-        return self.E
+        return self.e
 
     def validate_vertex(self, v):
         """
@@ -33,7 +33,7 @@ class Digraph:
         :return: None
         :raises ValueError si :param v no esta en el grafo
         """
-        if not 0 < v < self.V:
+        if v < 0 or v >= self.V():
             raise ValueError("El vertice no esta entre 0 y {}".format(self.V()))
 
     def add_edge(self, u, v):
@@ -47,7 +47,7 @@ class Digraph:
         self.validate_vertex(u)
         self.validate_vertex(v)
         self.adj[u].append(v)
-        self.E += 1
+        self.e += 1
 
     def adj_e(self, v):
         """
@@ -59,7 +59,7 @@ class Digraph:
         self.validate_vertex(v)
         return [Edge(v,w) for w in self.adj[v]]
 
-    def adj(self,v):
+    def adj_list(self,v):
         """
         Devuelve una lista con los vertices adjacentes a v
         :param v: el vertice 
@@ -87,7 +87,15 @@ class Digraph:
         """
         return iter([Edge(v,u) for v in range(self.V()) for u in self.adj[v]])
 
-
+    def __str__(self):
+        """
+        Devuelve una representacion en string del grafo
+        :return: una representacion en string del grafo
+        """
+        g = "{} vertices, {} edges\n".format(self.V(), self.E())
+        for v in self.adj:
+            g += "{}: {}\n".format(v, str(self.adj[v]))
+        return g
 
 class Edge:
   """
@@ -99,3 +107,14 @@ class Edge:
   def __init__(self, src, dst):
     self.src = src
     self.dst = dst
+
+def create_graph_from_file(file):
+    with open(file, "r") as file:
+        num_v = int(file.readline())
+        num_e = int(file.readline())
+        g = Digraph(num_v)
+        for i in range(num_e):
+            vertexes = file.readline().split()
+            u, v = int(vertexes[0]), int(vertexes[1])
+            g.add_edge(u,v)
+    return g
