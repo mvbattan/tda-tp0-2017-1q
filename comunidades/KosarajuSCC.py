@@ -1,22 +1,19 @@
-from common.graph import Digraph
-
 class KosarajuSCC:
     def __init__(self, g):
         '''
-        Calculates all the Strongly Connected Components and asigns an id to every vertex.
-        :param graph: of class Digraph 
+        Calcula las Componentes Fuertemente Conexas del grafo g.
+        :param g: grafo implementando la interfaz de la clase Digraph 
         '''
         self.components = {}
         order = self.dfs(g)
-        order.reverse()
+        order.reverse() # se ordena de ultimo terminado de visitar a primero terminado de visitar
         print(order)
-        # dfs in reverse order assigning scc ids
-        self.find_SCC(g.reverse(),order)
+        self.find_SCC(g.reverse(),order) # dfs a g transpuesta tomando los vertices en orden inverso
 
     def dfs(self, g):
         stack = []
         visited = {v: False for v in g}
-        ordered = {v: False for v in g} # para saber si ya está ordenado
+        ordered = {v: False for v in g} # para saber si ya esta ordenado
         order = []  # el primero es el que primero termina de ser visitado
         for v in g: # por si no es conexo
             if visited[v]:
@@ -40,14 +37,14 @@ class KosarajuSCC:
         return order
 
     def find_SCC(self, g, order):
-        c_id = 0 #component id
+        c_id = -1 #component id
         stack = []
         visited = {v: False for v in g}
         for v in order:
             if visited[v]:
                 continue
-            stack.append(v) #nueva raiz
-            c_id += 1       #nueva CFC
+            stack.append(v) # nueva raiz
+            c_id += 1       # nueva CFC
             self.components[c_id] = set()
             while stack:
                 v_now = stack.pop()
@@ -63,4 +60,13 @@ class KosarajuSCC:
     def count(self):
         return len(self.components)
 
+    def get_component(self, i):
+        """
+        Devuelve la componente fuertemente conexa i. Si hay menos, lanza IndexError
+        :param i: la componente que se quiere
+        :return: una lista ordenada con los vertices en la componente
+        """
+        if i >= self.count():
+            raise IndexError
+        return sorted(list(self.components[i]))
 

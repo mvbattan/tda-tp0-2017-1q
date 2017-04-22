@@ -1,5 +1,4 @@
 import os
-from common.graph import Digraph
 from common.graph import create_graph_from_file
 from comunidades.KosarajuSCC import KosarajuSCC
 
