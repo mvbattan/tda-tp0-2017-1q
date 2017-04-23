@@ -38,7 +38,7 @@ class Digraph:
     def add_edge(self, u, v):
         """
         Agrega una arista desde u hasta v al grafo.
-        :param u: vertice fuente 
+        :param u: vertice fuente
         :param v: vertice destino
         :return: None
         :raises ValueError si :param u o :param v no estan en el grafo
@@ -61,7 +61,7 @@ class Digraph:
     def adj_list(self,v):
         """
         Devuelve una lista con los vertices adjacentes a v
-        :param v: el vertice 
+        :param v: el vertice
         :return: lista con los vertices adjacentes a v
         :raises ValueError si :param v no esta en el grafo
         """
@@ -102,7 +102,7 @@ class Digraph:
     def reverse(self):
         """
         Devuelve el grafo transpuesto (cada arista apunta para el lado contrario)
-        :return: 
+        :return:
         """
         r = Digraph(self.v)
         for e in self.iter_edges():
@@ -120,7 +120,10 @@ class Edge:
     self.src = src
     self.dst = dst
 
-def create_graph_from_file(file):
+  def __str__(self):
+    return "Edge from " + src + "to " + dst
+
+def create_graph_from_file(file, is_directed = True):
     with open(file, "r") as file:
         num_v = int(file.readline())
         num_e = int(file.readline())
@@ -129,4 +132,6 @@ def create_graph_from_file(file):
             vertexes = file.readline().split()
             u, v = int(vertexes[0]), int(vertexes[1])
             g.add_edge(u,v)
+            if not is_directed:
+                g.add_edge(v, u)
     return g
