@@ -113,9 +113,6 @@ class Edge:
   """
   Arista de un grafo.
   """
-  src = None
-  dst = None
-
   def __init__(self, src, dst):
     self.src = src
     self.dst = dst
