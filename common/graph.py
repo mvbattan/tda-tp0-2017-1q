@@ -121,7 +121,7 @@ class Edge:
     self.dst = dst
 
   def __str__(self):
-    return "Edge from " + src + "to " + dst
+    return "Edge from " + self.src + "to " + self.dst
 
 def create_graph_from_file(file, is_directed = True):
     with open(file, "r") as file:
