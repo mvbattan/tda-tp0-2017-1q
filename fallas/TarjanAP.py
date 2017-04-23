@@ -1,5 +1,3 @@
-from random import randint
-
 class TarjanAP:
     def __init__(self, G):
         self.parents =         [None] * G.V()
