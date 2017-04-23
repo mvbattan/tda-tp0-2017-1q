@@ -16,8 +16,8 @@ class KosarajuSCC:
         :return: una lista "ordered" con los indices de los nodos en orden de finalizacion de la visita dfs
         """
         stack = []
-        visiting = {v: False for v in g} # si se empezo a visitar
-        ordered = {v: False for v in g} # para saber si ya esta ordenado
+        visiting = [False] * g.V() # si se empezo a visitar
+        ordered = [False] * g.V() # para saber si ya esta ordenado
         order = []  # el primero es el que primero termina de ser visitado
         for v in g: # por si no es conexo
             if visiting[v]:
@@ -52,7 +52,7 @@ class KosarajuSCC:
         """
         c_id = -1 # component id
         stack = []
-        visited = {v: False for v in g}
+        visited = [False] * g.V()
         while order:
             v = order.pop() # recorro de ultimo terminado de visitar en el recorrido anterior a primero
             if visited[v]:
