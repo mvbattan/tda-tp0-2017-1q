@@ -1,0 +1,7 @@
+language: python
+python:
+    - "3.6"
+install:
+    - sudo apt-get install -y pylint
+script:
+    - ls | grep \.py3$ | xargs
