@@ -9,7 +9,7 @@ class TarjanAP:
         self.min_dfs_depth =   [None] * G.V()
         self.is_articulation = [False] * G.V()
 
-        self.current_num = 1
+        self.current_dfs_depth = 1
         self.dfs_stack = []
         self.dfs_tree = {}
         self.G = G
@@ -34,9 +34,9 @@ class TarjanAP:
                 if not self.visited[current_vertex]:
                     is_dfs_leaf = True
                     self.visited[current_vertex] = True
-                    self.dfs_depth[current_vertex] = self.current_num
-                    self.min_dfs_depth[current_vertex] = self.current_num
-                    self.current_num += 1
+                    self.dfs_depth[current_vertex] = self.current_dfs_depth
+                    self.min_dfs_depth[current_vertex] = self.current_dfs_depth
+                    self.current_dfs_depth += 1
 
                 for neighbor in self.G.adj_list(current_vertex):
 
