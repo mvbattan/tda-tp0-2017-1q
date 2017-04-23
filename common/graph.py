@@ -9,14 +9,13 @@ class Digraph:
     creadas, las aristas no se pueden eliminar, pero siempre se pueden añadir
     nuevas aristas.
     """
-    v = 0
-    e = 0
-    adj = {}
 
     def __init__(self, v):
         if v < 0:
             raise ValueError("El numero de vertices en un grafo debe ser mayor a cero")
         self.v = v
+        self.e = 0
+        self.adj = {}
         for i in range(v):
             self.adj[i] = []
 
@@ -96,6 +95,19 @@ class Digraph:
         for v in self.adj:
             g += "{}: {}\n".format(v, str(self.adj[v]))
         return g
+
+    def __len__(self):
+        return self.v
+
+    def reverse(self):
+        """
+        Devuelve el grafo transpuesto (cada arista apunta para el lado contrario)
+        :return: 
+        """
+        r = Digraph(self.v)
+        for e in self.iter_edges():
+            r.add_edge(e.dst,e.src)
+        return r
 
 class Edge:
   """
