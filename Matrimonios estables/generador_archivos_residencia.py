@@ -2,20 +2,16 @@ import sys
 import math
 import random
 
-L=5 #CANTIDAD DE ESPECIALIDADES
+L=1 #CANTIDAD DE ESPECIALIDADES
 MIN_V=20 #CANTIDAD MINIMA DE VACANTES
 MAX_V=50 #CANTIDAD MAXIMA DE VACANTES
 random.seed()
 
 def orderedPreferenceMaker(m,l):
-	k=0	
-	s=""
 	q_ordered=[]
 
 	for i in range(int(m)):
-		for j in range (l):
-			q_ordered.append(str(i+1)+','+str(j+1))
-			k=k+1
+		q_ordered.append(str(i+1))
 	return q_ordered
 	
 def arrayDisordering(a):
@@ -48,12 +44,12 @@ def meritCreator(n):
 		s=s+" "+str(H[i])
 	return s
 
-def _vacantCreator(i,j,m):	
+def _vacantCreator(i,j,m):
 	q=[]
 	s=""
-	for i in range(int(m)):
+	for k in range(int(m)):
 	 	q.append(random.randint(i,j))
-	 	s=s+" "+str(q[i])
+	 	s=s+" "+str(q[k])
 	return s	
 
 def vacantCreator(m):
@@ -61,12 +57,12 @@ def vacantCreator(m):
 
 def randomPreferencePrinter(m,n,f): #IMPRIME m PREFERENCIAS DE HOSPITALES Y ESPECIALIDADES PARA n ALUMNOS
 	for i in range(int(n)):
-		f.write("\"\"\"ALUMNO: "+str(i+1)+"\"\"\" "+str(preferenceCreator(m,L))+'\n') # N RENGLONES CON LAS PREFERENCIAS DE LOS ESTUDIANTES SEPARADAS POR ESPACIOS
+		f.write(str(preferenceCreator(m,L))+'\n') # N RENGLONES CON LAS PREFERENCIAS DE LOS ESTUDIANTES SEPARADAS POR ESPACIOS
 
 def randomMeritPrinter(n,m,f):
 	for j in range(int(m)):
 		for k in range(L):
-			f.write("\"\"\"HOSPITAL: "+str(j+1)+" ESPECIALIDAD:"+str(k+1)+"\"\"\" "+ str(meritCreator(n))+'\n')# M RENGLONES CON EL ORDEN DE MERITO DE CADA HOSP SEPARADO CON ESPACIOS
+			f.write(str(meritCreator(n))+'\n')# M RENGLONES CON EL ORDEN DE MERITO DE CADA HOSP SEPARADO CON ESPACIOS
 
 
 file_name = input("Ingrese el nombre del archivo de salida: ")
