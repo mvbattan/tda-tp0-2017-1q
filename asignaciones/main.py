@@ -1,6 +1,8 @@
 import sys
 import math
 
+from asignaciones.preferenceGenerator import generatePreferences, FILE_NAME
+
 E = 1  # CANTIDAD DE ESPECIALIDADES
 
 tentative_engagements = []
@@ -45,14 +47,17 @@ def stableMatching(prefered_by_students, prefered_by_hospitals):
     while (free_students):
         beginMatching(free_students[0], prefered_by_students, prefered_by_hospitals)
 
+def main(student_count):
+    generatePreferences(student_count)
+    with open(FILE_NAME + ".txt", "r") as f:
+        n = int(f.readline())
+        PREFERED_BY_HOSPITALS = tableCreator(f, n)
+        m = int(f.readline())
+        PREFERED_BY_STUDENTS = tableCreator(f, m)
+        initFreeStudents(PREFERED_BY_STUDENTS)
+        stableMatching(PREFERED_BY_STUDENTS, PREFERED_BY_HOSPITALS)
+        print("Tentative Engagements:")
+        print(tentative_engagements)
 
-file_name = input("Ingrese el nombre del archivo: ")
-with open(file_name + ".txt", "r") as f:
-    n = int(f.readline())
-    PREFERED_BY_HOSPITALS = tableCreator(f, n)
-    m = int(f.readline())
-    PREFERED_BY_STUDENTS = tableCreator(f, m)
-    initFreeStudents(PREFERED_BY_STUDENTS)
-    stableMatching(PREFERED_BY_STUDENTS, PREFERED_BY_HOSPITALS)
-    print("tentative_engagements")
-    print(tentative_engagements)
+if __name__ == '__main__':
+    main()

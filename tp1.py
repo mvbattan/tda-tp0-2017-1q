@@ -2,6 +2,8 @@ import sys
 import time
 from comunidades import main as comunidades
 from fallas import main as fallas
+from asignaciones import main as asignaciones
+
 USAGE = '''
 Instrucciones de uso:
         -ar <n>     Ejecuta el problema de Asignación de Residencias con n estudiantes y hospitales
@@ -20,12 +22,12 @@ def main(argc, argv):
 
     ej, n = argv[1], int(argv[2])
 
-    if not 0 < n < 7:
-        print("n debe ser un número entre 1 y 6 inclusive")
-        return
-
     if ej == "-ar":
         print("Asignación de Residencias")
+        return measure_time(asignaciones.main, n)
+
+    if not 0 < n < 7:
+        print("n debe ser un número entre 1 y 6 inclusive")
         return
 
     if ej == "-pf":
