@@ -21,35 +21,29 @@ def tableCreator(finput, qlines):
         table.append(s)
     return table
 
-
-def dictionaryCreator(n):
-    dic = {i + 1: None for i in range(n)}
-    return dic
-
-
 def beginMatching(student, prefered_by_students, prefered_by_hospitals):
     for hospital in prefered_by_students[student - 1]:
 
-        print("for")
-        taken_match = [couple for couple in tentative_engagements if hospital in couple]
+        # print("for")
+        taken_match = [couple for couple in tentative_engagements if hospital == couple[1]]
         if (len(taken_match) == 0):
-            print("primer if")
+            # print("primer if")
             tentative_engagements.append([student, hospital])
             free_students.remove(student)
             break
         elif (len(taken_match) > 0):
-            print("elif")
+            # print("elif")
 
             current_student = prefered_by_hospitals[hospital - 1].index(taken_match[0][0])
             potential_student = prefered_by_hospitals[hospital - 1].index(student)
 
             if (current_student > potential_student):
-                print("if del elif")
-                print(free_students)
+                # print("if del elif")
+                # print(free_students)
                 free_students.remove(student)
-                print(free_students)
+                # print(free_students)
                 free_students.append(taken_match[0][0])
-                print(free_students)
+                # print(free_students)
                 taken_match[0][0] = student
                 break
 
@@ -59,23 +53,19 @@ def initFreeStudents(stu_list):
         free_students.append(student + 1)
 
 
-def stableMatching(prefered_by_students, prefered_by_hospitals, matching):
-    while (len(free_students) > 0):
-        print("while")
-
-        for student in free_students:
-            beginMatching(student, prefered_by_students, prefered_by_hospitals)
+def stableMatching(prefered_by_students, prefered_by_hospitals):
+    while (free_students):
+        beginMatching(free_students[0], prefered_by_students, prefered_by_hospitals)
 
 
 # file_name = input("Ingrese el nombre del archivo: ")
-with open("p2.txt", "r") as f:
+with open("p4.txt", "r") as f:
     n = int(f.readline())
     PREFERED_BY_HOSPITALS = tableCreator(f, n)
     m = int(f.readline())
     PREFERED_BY_STUDENTS = tableCreator(f, m)
-    dict_matching = dictionaryCreator(n)
     initFreeStudents(PREFERED_BY_STUDENTS)
-    stableMatching(PREFERED_BY_STUDENTS, PREFERED_BY_HOSPITALS, dict_matching)
+    stableMatching(PREFERED_BY_STUDENTS, PREFERED_BY_HOSPITALS)
     print("tentative_engagements")
     print(tentative_engagements)
     print(PREFERED_BY_STUDENTS)
