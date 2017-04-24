@@ -1,4 +1,5 @@
 import sys
+import time
 from comunidades import main as comunidades
 from fallas import main as fallas
 USAGE = '''
@@ -29,12 +30,17 @@ def main(argc, argv):
 
     if ej == "-pf":
         print("Puntos de Falla")
-        return fallas.main(n)
+        return measure_time(fallas.main,n)
 
     if ej == "-cr":
         print("Comunidades en Redes")
-        return comunidades.main(n)
+        return measure_time(comunidades.main,n)
 
+def measure_time(f,n):
+    start = time.perf_counter()
+    f(n)
+    end = time.perf_counter()
+    print("Tiempo de ejecución:     {:.5f} segundos".format(end - start))
 
 if __name__ == "__main__":
     main(len(sys.argv), sys.argv)
