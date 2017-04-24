@@ -1,85 +1,41 @@
-import sys
-import math
 import random
+from random import sample
 
-L=1 #CANTIDAD DE ESPECIALIDADES
-MIN_V=20 #CANTIDAD MINIMA DE VACANTES
-MAX_V=50 #CANTIDAD MAXIMA DE VACANTES
+MIN_V = 20  # CANTIDAD MINIMA DE VACANTES
+MAX_V = 50  # CANTIDAD MAXIMA DE VACANTES
 random.seed()
 
-def orderedPreferenceMaker(m,l):
-	q_ordered=[]
+def vacantCreator(m_hospitals):
+    return " ".join(str(random.randint(MIN_V,MAX_V+1)) for x in range(m_hospitals))
 
-	for i in range(int(m)):
-		q_ordered.append(str(i+1))
-	return q_ordered
-	
-def arrayDisordering(a):
-	i=len(a)
-	while i>1 :
-		i=i-1
-		j=random.randrange(i)
-		a[j],a[i] = a[i], a[j]
-	return
-	
-def preferenceDisordering(q):
-		arrayDisordering(q)
-		return q
-		
-def preferenceCreator(m,l):
-		s=""
-		Q = orderedPreferenceMaker(m,l)
-		preferenceDisordering(Q)
-		for	i in range(int(m)):
-			s=s+" "+str(Q[i])	
-		return s
 
-def meritCreator(n):
-	H=[]
-	s=""
-	for i in range(int(n)):
-		H.append(i+1)
-	arrayDisordering(H)
-	for i in range(int(n)):
-		s=s+" "+str(H[i])
-	return s
+def randomPreferencePrinter(m_hospitals, n_studentes, f):
+    for i in range(n_studentes):
+        f.write(" ".join(str(x) for x in sample(range(1,m_hospitals+1),m_hospitals)))
+        f.write("\n") # N RENGLONES CON LAS PREFERENCIAS DE LOS ESTUDIANTES SEPARADAS POR ESPACIOS
 
-def _vacantCreator(i,j,m):
-	q=[]
-	s=""
-	for k in range(int(m)):
-	 	q.append(random.randint(i,j))
-	 	s=s+" "+str(q[k])
-	return s	
 
-def vacantCreator(m):
-	return _vacantCreator(MIN_V,MAX_V,m)
-
-def randomPreferencePrinter(m,n,f): #IMPRIME m PREFERENCIAS DE HOSPITALES Y ESPECIALIDADES PARA n ALUMNOS
-	for i in range(int(n)):
-		f.write(str(preferenceCreator(m,L))+'\n') # N RENGLONES CON LAS PREFERENCIAS DE LOS ESTUDIANTES SEPARADAS POR ESPACIOS
-
-def randomMeritPrinter(n,m,f):
-	for j in range(int(m)):
-		for k in range(L):
-			f.write(str(meritCreator(n))+'\n')# M RENGLONES CON EL ORDEN DE MERITO DE CADA HOSP SEPARADO CON ESPACIOS
-
+def randomMeritPrinter(m_hospitals, n_students, f):
+    for j in range(int(m_hospitals)):
+        f.write(" ".join(str(x) for x in sample(range(1, n_students + 1), n_students)))
+        f.write("\n")  # N RENGLONES CON LAS PREFERENCIAS DE LOS HOSPITALES SEPARADAS POR ESPACIOS
 
 file_name = input("Ingrese el nombre del archivo de salida: ")
-N=input("Ingrese la cantidad de estudiantes: ")
-M=input("Ingrese la cantidad de hospitales: ")
-int(N)
-int(M)
-										
-with open(file_name + ".txt","w") as f:
+n_students = input("Ingrese la cantidad de estudiantes: ")
+m_hospitals = input("Ingrese la cantidad de hospitales: ")
 
-	f.write(N+'\n')
-	
-	randomPreferencePrinter(M,N,f)
-	
-	f.write(M+'\n')
+# file_name = "p2"
+# n_students = "20"
+# m_hospitals = "90"
 
-	randomMeritPrinter(N,M,f)
-	
-	f.write(str(vacantCreator(M))) #CANTIDAD DE VACANTES DE CADA HOSP SEPARADAS POR ESPACIOS
 
+with open(file_name + ".txt", "w") as f:
+    f.write(n_students + '\n')
+
+    randomPreferencePrinter(int(m_hospitals), int(n_students), f)
+
+    f.write(m_hospitals + '\n')
+
+    randomMeritPrinter(int(m_hospitals), int(n_students), f)
+
+    f.write(str(vacantCreator(int(m_hospitals))))  # CANTIDAD DE VACANTES DE CADA HOSP SEPARADAS POR ESPACIOS
