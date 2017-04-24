@@ -6,13 +6,6 @@ E = 1  # CANTIDAD DE ESPECIALIDADES
 tentative_engagements = []
 free_students = []
 
-
-def hospitalsAmount(f, n):
-    for i in range(n):
-        f.readline()
-    return int(f.readline())
-
-
 def tableCreator(finput, qlines):
     table = []
     for i in range(qlines):
