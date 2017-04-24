@@ -44,7 +44,7 @@ def meritCreator(n):
 		s=s+" "+str(H[i])
 	return s
 
-def _vacantCreator(i,j,m):	
+def _vacantCreator(i,j,m):
 	q=[]
 	s=""
 	for k in range(int(m)):
